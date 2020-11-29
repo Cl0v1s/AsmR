@@ -1,4 +1,3 @@
-
 GAME::
 LOOP:
 	call WAIT_VBLANK

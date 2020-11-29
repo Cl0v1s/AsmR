@@ -6,12 +6,20 @@ ROM0 bank #0:
   SECTION: $0058-$0058 ($0001 byte) ["Serial IRQ Vector"]
   SECTION: $0060-$0060 ($0001 byte) ["Joypad IRQ Vector"]
   SECTION: $0100-$014f ($0050 bytes) ["Start"]
-  SECTION: $0150-$0209 ($00ba bytes) ["Program Start"]
+  SECTION: $0150-$02cf ($0180 bytes) ["Program Start"]
            $0150 = START
-           $0173 = READ_JOYPAD
-           $01f3 = JOY_FALSE
-           $01f6 = WAIT_VBLANK
-    SLACK: $3edb bytes
+           $0166 = CLEAN_OAM
+           $0175 = CLEAN_MAP
+           $0184 = LOADING
+           $0197 = GAME
+           $01a0 = READ_JOYPAD
+           $01a0 = LOOP_END
+           $0220 = JOY_FALSE
+           $0223 = WAIT_VBLANK
+           $0237 = DOG_IDLE_1
+           $0237 = DOG
+           $02cf = DOG_IDLE_2
+    SLACK: $3e15 bytes
 
 WRAM0 bank #0:
   SECTION: $c000-$c003 ($0004 bytes) ["RAM Vars"]

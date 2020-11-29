@@ -28,14 +28,13 @@ START:
 	ldh [rOCPD],a
 	ldh [rOBP0],a
 
+	include "loading.asm"
+
 	ld  a,%11010011  ;turn on LCD, BG0, OBJ0, etc
 	ldh [rLCDC],a    ;load LCD flags
 
-LOOP:
-	call WAIT_VBLANK
-	call READ_JOYPAD
-	jp LOOP
+include "game.asm"
 
 include "system/system.asm"
-
+include "res/res.asm"
 
