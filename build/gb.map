@@ -6,7 +6,7 @@ ROM0 bank #0:
   SECTION: $0058-$0058 ($0001 byte) ["Serial IRQ Vector"]
   SECTION: $0060-$0060 ($0001 byte) ["Joypad IRQ Vector"]
   SECTION: $0100-$014f ($0050 bytes) ["Start"]
-  SECTION: $0150-$0527 ($03d8 bytes) ["Program Start"]
+  SECTION: $0150-$0529 ($03da bytes) ["Program Start"]
            $0150 = START
            $0166 = CLEAN_OAM
            $0175 = CLEAN_MAP
@@ -33,8 +33,8 @@ ROM0 bank #0:
            $042b = DOG
            $04ea = DOG_Update
            $0501 = DOG_Update.update
-           $0517 = Apply_Animation
-    SLACK: $3bbd bytes
+           $050e = Apply_Animation
+    SLACK: $3bbb bytes
 
 WRAM0 bank #0:
   SECTION: $c000-$c005 ($0006 bytes) ["RAM Vars"]
