@@ -1,0 +1,7 @@
+
+GAME::
+LOOP:
+	call WAIT_VBLANK
+	call READ_JOYPAD
+	jp LOOP
+LOOP_END::

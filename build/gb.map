@@ -1,0 +1,27 @@
+ROM0 bank #0:
+  SECTION: $0028-$0038 ($0011 bytes) ["Copy Data"]
+  SECTION: $0040-$0045 ($0006 bytes) ["VBlank IRQ"]
+  SECTION: $0048-$0048 ($0001 byte) ["LCD IRQ Vector"]
+  SECTION: $0050-$0050 ($0001 byte) ["Timer IRQ Vector"]
+  SECTION: $0058-$0058 ($0001 byte) ["Serial IRQ Vector"]
+  SECTION: $0060-$0060 ($0001 byte) ["Joypad IRQ Vector"]
+  SECTION: $0100-$014f ($0050 bytes) ["Start"]
+  SECTION: $0150-$0209 ($00ba bytes) ["Program Start"]
+           $0150 = START
+           $0173 = READ_JOYPAD
+           $01f3 = JOY_FALSE
+           $01f6 = WAIT_VBLANK
+    SLACK: $3edb bytes
+
+WRAM0 bank #0:
+  SECTION: $c000-$c003 ($0004 bytes) ["RAM Vars"]
+           $c000 = vblank_flag
+           $c001 = vblank_count
+           $c002 = joypad_down
+           $c003 = joypad_pressed
+    SLACK: $0ffc bytes
+
+OAM bank #0:
+  SECTION: $fe00 (0 bytes) ["OAM"]
+  EMPTY
+
