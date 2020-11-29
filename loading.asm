@@ -21,15 +21,20 @@ CLEAN_MAP::
 		jp nz, .clean_map_loop
 
 LOADING::
-.dog_i_1
-	ld hl, _VRAM
-	ld de, DOG_IDLE_1
-	ld c, (DOG_IDLE_2 - DOG_IDLE_1)
-	.dog_i_1_loop
-			ld a, [de]
-			ld [hli], a
-			inc de
-			dec c
-			jp nz, .dog_i_1_loop
+ld hl, RES_DOG_IDLE_1
+ld bc, (RES_DOG_PATPAT_2 - RES_DOG)
+ld de, _VRAM + $10
+call LOAD_DATA
 
+ld hl, RES_DOG_PATPAT_2
+ld bc, (RES_DOG_PATPAT_3 - RES_DOG_PATPAT_2)
+ld de, _VRAM + $10 + (RES_DOG_PATPAT_2 - RES_DOG)
+call LOAD_DATA
 
+ld hl, RES_DOG_PATPAT_3
+ld bc, (RES_DOG_END - RES_DOG_PATPAT_3)
+ld de, _VRAM + $10  - RES_DOG + RES_DOG_PATPAT_3 
+call LOAD_DATA
+
+INIT::
+call DOG_Create

@@ -37,4 +37,5 @@ include "game.asm"
 
 include "system/system.asm"
 include "res/res.asm"
+include "engine/engine.asm"
 
