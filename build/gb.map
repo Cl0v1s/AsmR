@@ -6,7 +6,7 @@ ROM0 bank #0:
   SECTION: $0058-$0058 ($0001 byte) ["Serial IRQ Vector"]
   SECTION: $0060-$0060 ($0001 byte) ["Joypad IRQ Vector"]
   SECTION: $0100-$014f ($0050 bytes) ["Start"]
-  SECTION: $0150-$0524 ($03d5 bytes) ["Program Start"]
+  SECTION: $0150-$0527 ($03d8 bytes) ["Program Start"]
            $0150 = START
            $0166 = CLEAN_OAM
            $0175 = CLEAN_MAP
@@ -18,25 +18,23 @@ ROM0 bank #0:
            $023b = JOY_FALSE
            $023e = WAIT_VBLANK
            $0252 = LOAD_DATA
-           $025b = RES_DOG_ANIMATION_PATPAT_FRAME_1
            $025b = RES_DOG_ANIMATION
            $025b = RES_DOG_ANIMATION_PATPAT
-           $0265 = RES_DOG_ANIMATION_PATPAT_FRAME_2
-           $0269 = RES_DOG_ANIMATION_PATPAT_FRAME_3
-           $0273 = RES_DOG_IDLE_1
-           $0273 = RES_DOG
-           $0273 = RES_DOG_ANIMATION_END
-           $0303 = RES_DOG_PATPAT_2
-           $0393 = RES_DOG_PATPAT_3
-           $0423 = RES_DOG_END
-           $0423 = DOG_Create
-           $0423 = DOG
-           $04d8 = DOG_Update
-           $04f9 = DOG_Update.frame_3
-           $0502 = DOG_Update.frame_2
-           $050b = DOG_Update.frame_1
-           $0514 = Apply_Animation
-    SLACK: $3bc0 bytes
+           $0263 = RES_DOG_ANIMATION_PATPAT_FRAME_1
+           $026d = RES_DOG_ANIMATION_PATPAT_FRAME_2
+           $0271 = RES_DOG_ANIMATION_PATPAT_FRAME_3
+           $027b = RES_DOG_IDLE_1
+           $027b = RES_DOG
+           $027b = RES_DOG_ANIMATION_END
+           $030b = RES_DOG_PATPAT_2
+           $039b = RES_DOG_PATPAT_3
+           $042b = RES_DOG_END
+           $042b = DOG_Create
+           $042b = DOG
+           $04ea = DOG_Update
+           $0501 = DOG_Update.update
+           $0517 = Apply_Animation
+    SLACK: $3bbd bytes
 
 WRAM0 bank #0:
   SECTION: $c000-$c005 ($0006 bytes) ["RAM Vars"]
@@ -44,6 +42,7 @@ WRAM0 bank #0:
            $c001 = vblank_count
            $c002 = joypad_down
            $c003 = joypad_pressed
+           $c004 = wDogAnimation_step
            $c004 = wDogAnimation
            $c005 = wDogAnimation_counter
     SLACK: $0ffa bytes

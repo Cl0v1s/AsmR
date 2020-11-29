@@ -1,5 +1,10 @@
 DOG::
 DOG_Create:
+	ld a, $3F
+	ld [wDogAnimation_counter], a
+	ld a, $FF
+	ld [wDogAnimation_step], a
+
 	; index ; tile ; y ; x ; attr
 	create_sprite 00, 1, 0, 0, 0
 	create_sprite 03, 2, 8, 0, 0
@@ -17,34 +22,29 @@ DOG_Create:
 DOG_Update:
 	; update counter
 	ld a, [wDogAnimation_counter]
+	dec a
+	ld [wDogAnimation_counter], a
+	ret nz
+	ld a, $3F
+	ld [wDogAnimation_counter], a
+	ld a, [wDogAnimation_step]
 	inc a
-	ld [wDogAnimation_counter], a
-	cp $3F/4
-	jp z, .frame_2
-	cp $3F/4 * 2
-	jp z, .frame_3
-	cp $3F/4 * 3
-	jp z, .frame_2
-	cp $3F
-	jp z, .frame_1
-	ret c
+	cp 4
+	jp nz, .update
 	xor a
-	ld [wDogAnimation_counter], a
-	ret
-.frame_3
+.update
+	ld [wDogAnimation_step], a
+	sla a 
+	ld b, 0
+	ld c, a
+	ld hl, RES_DOG_ANIMATION_PATPAT
+	add hl, bc ; get addr animation
+	ld a, [hl+]
+	ld e, a
+	ld d, [hl]
 	ld hl, oamSprite00
-	ld de, RES_DOG_ANIMATION_PATPAT_FRAME_3
-	jp Apply_Animation
-.frame_2 
-	ld hl, oamSprite00
-	ld de, RES_DOG_ANIMATION_PATPAT_FRAME_2
-	jp Apply_Animation
-.frame_1
-	ld hl, oamSprite00
-	ld de, RES_DOG_ANIMATION_PATPAT_FRAME_1
-	jp Apply_Animation
-
-
+	call Apply_Animation
+ret
 
 ; de animation à jour
 ; hl adresse du sprite à changer
