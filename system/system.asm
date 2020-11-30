@@ -1,16 +1,6 @@
 include "system/joypad.asm"
 include "system/screen.asm"
 
-create_sprite: MACRO
-	ld a, 16 + \3
-	ld [oamSprite\1YCoord], a
-	ld a, 8 + \4
-	ld [oamSprite\1XCoord], a
-	ld a, \2
-	ld [oamSprite\1TileID], a
-	ld a, \5
-	ld [oamSprite\1Attributes], a
-ENDM
 
 ; LOAD_DATA
 ; Charge des données depuis une source vers une destination

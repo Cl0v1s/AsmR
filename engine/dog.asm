@@ -1,9 +1,11 @@
 DOG::
-DOG_Create:
-	ld a, $3F
+Dog_Create:
+	ld a, $0A
 	ld [wDogAnimation_counter], a
-	ld a, $FF
+	ld a, $3
 	ld [wDogAnimation_step], a
+	ld a, 4
+	ld [wDogState], a
 
 	; index ; tile ; y ; x ; attr
 	create_sprite 00, 1, 0, 0, 0
@@ -19,28 +21,71 @@ DOG_Create:
 	create_sprite 08, 9, 16, 16, 0
 	ret
 
-DOG_Update:
+; règle la position du chien
+; b: y
+; c: x
+Dog_SetPos:
+	setpos_sprite 00
+	ld a, b 
+	add 8
+	ld b, a
+	setpos_sprite 03
+	ld a, b
+	add 8 
+	ld b, a
+	setpos_sprite 06
+
+	ld a, c 
+	add 8 
+	ld c, a 
+	setpos_sprite 07
+	ld a, b 
+	sub 8
+	ld b, a
+	setpos_sprite 04
+	ld a, b
+	sub 8 
+	ld b, a
+	setpos_sprite 01
+
+	ld a, c 
+	add 8 
+	ld c, a 
+	setpos_sprite 02
+	ld a, b 
+	add 8
+	ld b, a
+	setpos_sprite 05
+	ld a, b
+	add 8 
+	ld b, a
+	setpos_sprite 08
+
+	ret
+
+
+Dog_Update:
 	; update counter
 	ld a, [wDogAnimation_counter]
 	dec a
 	ld [wDogAnimation_counter], a
 	ret nz
-	ld a, $3F
+	ld a, $0A
 	ld [wDogAnimation_counter], a
 	ld a, [wDogAnimation_step]
-	inc a
-	cp 4
+	dec a
+	cp 0
 	jp nz, .update
-	xor a
+	ld a, 3
 .update
 	ld [wDogAnimation_step], a
 	ld hl, RES_DOG_ANIMATION_PATPAT
 	ld bc, oamSprite00
 	jp Apply_Animation
 
-; a step de l'animation
-; hl animation
-; bc sprite
+; a: step de l'animation
+; hl: animation
+; bc: sprite
 Apply_Animation:
 	; recuperation de l'adresse de la frame
 	sla a 

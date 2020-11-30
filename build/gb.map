@@ -6,17 +6,15 @@ ROM0 bank #0:
   SECTION: $0058-$0058 ($0001 byte) ["Serial IRQ Vector"]
   SECTION: $0060-$0060 ($0001 byte) ["Joypad IRQ Vector"]
   SECTION: $0100-$014f ($0050 bytes) ["Start"]
-  SECTION: $0150-$0529 ($03da bytes) ["Program Start"]
+  SECTION: $0150-$05da ($048b bytes) ["Program Start"]
            $0150 = START
            $0166 = CLEAN_OAM
            $0175 = CLEAN_MAP
            $0184 = LOADING
-           $01a8 = INIT
-           $01af = GAME
+           $01ac = GAME
            $01bb = READ_JOYPAD
            $01bb = LOOP_END
            $023b = JOY_FALSE
-           $023e = WAIT_VBLANK
            $0252 = LOAD_DATA
            $025b = RES_DOG_ANIMATION
            $025b = RES_DOG_ANIMATION_PATPAT
@@ -29,23 +27,29 @@ ROM0 bank #0:
            $030b = RES_DOG_PATPAT_2
            $039b = RES_DOG_PATPAT_3
            $042b = RES_DOG_END
-           $042b = DOG_Create
            $042b = DOG
-           $04ea = DOG_Update
-           $0501 = DOG_Update.update
-           $050e = Apply_Animation
-    SLACK: $3bbb bytes
+           $0594 = Dog_Update.update
+           $05a0 = Apply_Animation
+           $05bc = Life_Init
+           $05bc = Life
+           $05ca = Life_Update
+           $05d1 = Scene_Init
+           $05d1 = Scene
+    SLACK: $3b0a bytes
 
 WRAM0 bank #0:
-  SECTION: $c000-$c005 ($0006 bytes) ["RAM Vars"]
+  SECTION: $c000-$c00a ($000b bytes) ["RAM Vars"]
            $c000 = vblank_flag
            $c001 = vblank_count
            $c002 = joypad_down
            $c003 = joypad_pressed
-           $c004 = wDogAnimation_step
-           $c004 = wDogAnimation
-           $c005 = wDogAnimation_counter
-    SLACK: $0ffa bytes
+           $c004 = wSceneIsLife
+           $c005 = wSceneIsOverworld
+           $c006 = wDogAnimation_step
+           $c006 = wDogAnimation
+           $c007 = wDogAnimation_counter
+           $c00a = wDogState
+    SLACK: $0ff5 bytes
 
 OAM bank #0:
   SECTION: $fe00-$fe9f ($00a0 bytes) ["OAM"]

@@ -35,6 +35,3 @@ ld hl, RES_DOG_PATPAT_3
 ld bc, (RES_DOG_END - RES_DOG_PATPAT_3)
 ld de, _VRAM + $10  - RES_DOG + RES_DOG_PATPAT_3 
 call LOAD_DATA
-
-INIT::
-call DOG_Create
