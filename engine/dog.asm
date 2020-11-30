@@ -2,9 +2,9 @@ DOG::
 Dog_Create:
 	ld a, $0A
 	ld [wDogAnimation_counter], a
-	ld a, $3
-	ld [wDogAnimation_step], a
 	ld a, 4
+	ld [wDogAnimation_step], a
+	ld a, 0
 	ld [wDogState], a
 
 	; index ; tile ; y ; x ; attr
@@ -65,6 +65,12 @@ Dog_SetPos:
 
 
 Dog_Update:
+	ld a, [wDogState] 
+	cp 0 
+	ret z
+	; wDogState == 1
+	ld hl, RES_DOG_ANIMATION_PATPAT
+
 	; update counter
 	ld a, [wDogAnimation_counter]
 	dec a
@@ -79,7 +85,6 @@ Dog_Update:
 	ld a, 3
 .update
 	ld [wDogAnimation_step], a
-	ld hl, RES_DOG_ANIMATION_PATPAT
 	ld bc, oamSprite00
 	jp Apply_Animation
 
