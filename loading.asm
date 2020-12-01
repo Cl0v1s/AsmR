@@ -21,17 +21,8 @@ CLEAN_MAP::
 		jp nz, .clean_map_loop
 
 LOADING::
-ld hl, RES_DOG_IDLE_1
-ld bc, (RES_DOG_PATPAT_2 - RES_DOG)
+; chargement chien
+ld hl, RES_DOG
+ld bc, (RES_DOG_END - RES_DOG)
 ld de, _VRAM + $10
-call LOAD_DATA
-
-ld hl, RES_DOG_PATPAT_2
-ld bc, (RES_DOG_PATPAT_3 - RES_DOG_PATPAT_2)
-ld de, _VRAM + $10 + (RES_DOG_PATPAT_2 - RES_DOG)
-call LOAD_DATA
-
-ld hl, RES_DOG_PATPAT_3
-ld bc, (RES_DOG_END - RES_DOG_PATPAT_3)
-ld de, _VRAM + $10  - RES_DOG + RES_DOG_PATPAT_3 
 call LOAD_DATA

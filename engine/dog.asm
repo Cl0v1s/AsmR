@@ -1,11 +1,6 @@
 DOG::
 Dog_Create:
-	ld a, $0A
-	ld [wDogAnimation_counter], a
-	ld a, 4
-	ld [wDogAnimation_step], a
-	ld a, 0
-	ld [wDogState], a
+	call Dog_Reset
 
 	; index ; tile ; y ; x ; attr
 	create_sprite 00, 1, 0, 0, 0
@@ -19,6 +14,15 @@ Dog_Create:
 	create_sprite 02, 7, 0, 16, 0
 	create_sprite 05, 8, 8, 16, 0
 	create_sprite 08, 9, 16, 16, 0
+	ret
+
+Dog_Reset:
+	ld a, 1
+	ld [wDogAnimation_counter], a
+	ld a, 1
+	ld [wDogAnimation_step], a
+	ld a, 0
+	ld [wDogState], a
 	ret
 
 ; règle la position du chien
@@ -64,13 +68,18 @@ Dog_SetPos:
 	ret
 
 
-Dog_Update:
+Dog_Update::
 	ld a, [wDogState] 
 	cp 0 
-	ret z
+	jp nz, .patpat
+	; wDogState == 0
+	ld hl, RES_DOG_ANIMATION_IDLE
+	jp .counter
+.patpat
 	; wDogState == 1
 	ld hl, RES_DOG_ANIMATION_PATPAT
 
+.counter
 	; update counter
 	ld a, [wDogAnimation_counter]
 	dec a
