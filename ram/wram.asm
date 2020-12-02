@@ -12,7 +12,8 @@ db
 wSceneIsLife: db
 wSceneIsOverworld: db
 
-wLifeTemp1: db
+wLifeCantAct: db
+wLifeBProgress: db
 
 
 wDogAnimation::
