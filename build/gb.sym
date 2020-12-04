@@ -47,12 +47,11 @@
 00:0738 Life_B_load_ui
 00:0745 Life_B_unload_ui
 00:0752 Life_B_update_ui
-00:076c Life_B_update_ui.loop_last
-00:0772 Life_B_update_ui.after_loop
-00:077a Life_B_update
-00:078c Life_B_update.update
-00:079d Scene_Init
-00:079d Scene
+00:0767 Life_B_update_ui.after_loop
+00:076f Life_B_update
+00:0781 Life_B_update.update
+00:0797 Scene_Init
+00:0797 Scene
 00:c000 vblank_flag
 00:c001 vblank_count
 00:c002 joypad_down

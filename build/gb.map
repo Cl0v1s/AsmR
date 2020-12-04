@@ -6,7 +6,7 @@ ROM0 bank #0:
   SECTION: $0058-$0058 ($0001 byte) ["Serial IRQ Vector"]
   SECTION: $0060-$0060 ($0001 byte) ["Joypad IRQ Vector"]
   SECTION: $0100-$014f ($0050 bytes) ["Start"]
-  SECTION: $0150-$07a6 ($0657 bytes) ["Program Start"]
+  SECTION: $0150-$07a0 ($0651 bytes) ["Program Start"]
            $0150 = START
            $0166 = CLEAN_OAM
            $0175 = CLEAN_MAP
@@ -55,13 +55,12 @@ ROM0 bank #0:
            $0738 = Life_B_load_ui
            $0745 = Life_B_unload_ui
            $0752 = Life_B_update_ui
-           $076c = Life_B_update_ui.loop_last
-           $0772 = Life_B_update_ui.after_loop
-           $077a = Life_B_update
-           $078c = Life_B_update.update
-           $079d = Scene_Init
-           $079d = Scene
-    SLACK: $393e bytes
+           $0767 = Life_B_update_ui.after_loop
+           $076f = Life_B_update
+           $0781 = Life_B_update.update
+           $0797 = Scene_Init
+           $0797 = Scene
+    SLACK: $3944 bytes
 
 WRAM0 bank #0:
   SECTION: $c000-$c00c ($000d bytes) ["RAM Vars"]

@@ -77,29 +77,21 @@ Life_B_update_ui::
 	ld c, 10
 	.loop
 	dec c
-	sub 8 ; a = a - 8
-	jp c, .loop_last
 	push af
 	ld a, 8
 	add Life_UI_TILE ; a = Life_UI_TILE + 8
 	ld [hl+], a
 	pop af 
-	cp 0 
-	jp z, .after_loop ; on arrête si a vaut zéro
+	sub 8
+	jp c, .after_loop ; on arrête si a vaut zéro
 	jp .loop
-	.loop_last
-	cpl
-	ld b, a
-	ld a, Life_UI_TILE
-	add b
-	ld [hl+], a
 	.after_loop
-	ld a, Life_UI_TILE
-	.after_loop_loop
-	ld [hl+], a
-	dec c
+	ld a, c 
+	cp 0 
 	ret z
-	jp .after_loop_loop
+	ld a, Life_UI_TILE
+	ld [hl], a
+	ret 
 
 
 Life_B_update::
@@ -113,7 +105,8 @@ Life_B_update::
 	jp Life_B_unload_ui
 .update
 	ld e, a
-	call Life_B_update_ui
+	cp Life_B_Progress_MAX
+	call c, Life_B_update_ui
 
 	; test des inputs 
 	ld a, [joypad_down]
@@ -122,9 +115,10 @@ Life_B_update::
 
 	; si on appuie sur B
 	; e contient wLifeBProgress
-	ld a, 3
+	ld a, 4
 	add e
+	cp Life_B_Progress_MAX
+	ret nc
 	ld [wLifeBProgress], a
-
 	ret
 
