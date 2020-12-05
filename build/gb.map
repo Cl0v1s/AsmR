@@ -6,7 +6,7 @@ ROM0 bank #0:
   SECTION: $0058-$0058 ($0001 byte) ["Serial IRQ Vector"]
   SECTION: $0060-$0060 ($0001 byte) ["Joypad IRQ Vector"]
   SECTION: $0100-$014f ($0050 bytes) ["Start"]
-  SECTION: $0150-$07a0 ($0651 bytes) ["Program Start"]
+  SECTION: $0150-$07af ($0660 bytes) ["Program Start"]
            $0150 = START
            $0166 = CLEAN_OAM
            $0175 = CLEAN_MAP
@@ -52,18 +52,18 @@ ROM0 bank #0:
            $071a = Life_Update.update
            $0722 = Life_Update.draw
            $0729 = Life_B_action
-           $0738 = Life_B_load_ui
-           $0745 = Life_B_unload_ui
-           $0752 = Life_B_update_ui
-           $0767 = Life_B_update_ui.after_loop
-           $076f = Life_B_update
-           $0781 = Life_B_update.update
-           $0797 = Scene_Init
-           $0797 = Scene
-    SLACK: $3944 bytes
+           $0742 = Life_B_load_ui
+           $0758 = Life_B_unload_ui
+           $0765 = Life_B_update_ui
+           $0777 = Life_B_update_ui.after_loop
+           $0783 = Life_B_update
+           $0792 = Life_B_update.update
+           $07a6 = Scene_Init
+           $07a6 = Scene
+    SLACK: $3935 bytes
 
 WRAM0 bank #0:
-  SECTION: $c000-$c00c ($000d bytes) ["RAM Vars"]
+  SECTION: $c000-$c00d ($000e bytes) ["RAM Vars"]
            $c000 = vblank_flag
            $c001 = vblank_count
            $c002 = joypad_down
@@ -72,11 +72,12 @@ WRAM0 bank #0:
            $c005 = wSceneIsOverworld
            $c006 = wLifeCantAct
            $c007 = wLifeBProgress
-           $c008 = wDogAnimation_step
-           $c008 = wDogAnimation
-           $c009 = wDogAnimation_counter
-           $c00c = wDogState
-    SLACK: $0ff3 bytes
+           $c008 = wLifeBTarget
+           $c009 = wDogAnimation_step
+           $c009 = wDogAnimation
+           $c00a = wDogAnimation_counter
+           $c00d = wDogState
+    SLACK: $0ff2 bytes
 
 OAM bank #0:
   SECTION: $fe00-$fe9f ($00a0 bytes) ["OAM"]

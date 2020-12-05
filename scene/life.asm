@@ -42,14 +42,31 @@ Life_Update:
 ret
 
 Life_B_action::
+	; on empeche le début d'une nouvelle action
 	ld a, (4*$0A)*4
 	ld [wLifeCantAct], a
+	; on set le state
 	ld a, 1
 	ld [wDogState], a
+	; on détermine le niveau de progrès initial
 	ld a, Life_B_Progress_MAX/2
 	ld [wLifeBProgress], a
+	; on détermine la target
+	.target
+	ld a, [rDIV]
+	cp Life_B_Progress_MAX - 8
+	jp nc, .target
+	ld [wLifeBTarget], a
 	; continue
 Life_B_load_ui::
+	call Screen_VBlank
+	ld hl, Life_UI_X - $20
+	; a contient wLifeBTarget
+	; add l 
+	; ld l, a
+	ld a, Life_UI_TILE
+	ld [hl], a
+
 	; load ui data
 	ld hl, Life_UI_X
 	ld a, Life_UI_TILE
@@ -74,23 +91,24 @@ Life_B_unload_ui::
 ; a contient wLifeBProgress
 Life_B_update_ui::
 	ld hl, Life_UI_X
-	ld c, 10
 	.loop
-	dec c
-	push af
+	ld b, a ; on sauve a
 	ld a, 8
 	add Life_UI_TILE ; a = Life_UI_TILE + 8
 	ld [hl+], a
-	pop af 
+	ld a, b ; on restaure a
 	sub 8
-	jp c, .after_loop ; on arrête si a vaut zéro
+	jp c, .after_loop ; on arrête si < zéro
 	jp .loop
 	.after_loop
-	ld a, c 
-	cp 0 
-	ret z
-	ld a, Life_UI_TILE
-	ld [hl], a
+	ld b, a ; on sauve a 
+	ld a, l 
+	cp $EF ; on regarde si l a atteint la limite de 10 
+	ret z ; si oui, on arrête
+	ld a, b ; on restaure a 
+	add 8 ; on cancel le dernier sub 8 pour récupérer le reste 
+	add Life_UI_TILE
+	ld [hl+], a
 	ret 
 
 
@@ -102,11 +120,9 @@ Life_B_update::
 	; si wLifebProgress arrive à zéro, on annule l'action en cours
 	ld a, 1
 	ld [wLifeCantAct], a
-	jp Life_B_unload_ui
 .update
 	ld e, a
-	cp Life_B_Progress_MAX
-	call c, Life_B_update_ui
+	call Life_B_update_ui
 
 	; test des inputs 
 	ld a, [joypad_down]
