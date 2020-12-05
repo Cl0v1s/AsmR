@@ -22,16 +22,21 @@ Life_Update:
 	dec a
 	jp z, .act ; si wLifeCantAct - 1 vaut zéro, on peut aller aux inputs
 	ld [wLifeCantAct], a 
-	jp nz, .update ; sinon on l'update et on va directement dessiner
+	jr nz, .update ; sinon on l'update et on va directement dessiner
 .act
-	; on remet le dogo
+	; Pas de remise à zéro si déjà à zéro
+	ld a, [wDogState]
+	cp 0 
+	jr z, .act_after_reset
+	; on remet le dogo à zéro
 	call Life_B_unload_ui
 	call Dog_Reset
+	.act_after_reset
 	; test des inputs
 	ld a, [joypad_down]
 	bit 0, a
 	call nz, Life_B_action
-	jp .draw
+	jr .draw
 .update
 	ld a, [wDogState]
 	cp 1
@@ -54,16 +59,27 @@ Life_B_action::
 	; on détermine la target
 	.target
 	ld a, [rDIV]
-	cp Life_B_Progress_MAX - 8
-	jp nc, .target
+	and (Life_B_Progress_MAX - 16) - 1
+	or 16
 	ld [wLifeBTarget], a
+	ld b, a
 	; continue
 Life_B_load_ui::
 	call Screen_VBlank
 	ld hl, Life_UI_X - $20
-	; a contient wLifeBTarget
-	; add l 
-	; ld l, a
+	; b contient wLifeBTarget
+	ld a, b
+	srl a 
+	srl a 
+	srl a 
+	add l 
+	sub 1
+	ld l, a
+	ld a, Life_UI_TILE
+	ld [hl], a
+	ld a, l
+	add 2
+	ld l, a
 	ld a, Life_UI_TILE
 	ld [hl], a
 
@@ -78,7 +94,19 @@ Life_B_load_ui::
 	jp .loop
 
 Life_B_unload_ui::
-	; load ui data
+	ld hl, Life_UI_X - $20
+	ld a, [wLifeBTarget]
+	srl a
+	srl a
+	srl a
+	add l 
+	sub 1
+	ld l, a
+	ld a, $0
+	ld [hl+], a
+	inc hl
+	ld [hl], a
+	; unload ui data
 	ld hl, Life_UI_X
 	ld a, $0
 	ld b, 10
