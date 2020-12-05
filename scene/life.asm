@@ -28,6 +28,8 @@ Life_Update:
 	ld a, [wDogState]
 	cp 0 
 	jr z, .act_after_reset
+	cp 1
+	call z, Life_B_end ; si dogstate vaut 1 on check la fin
 	; on remet le dogo à zéro
 	call Life_B_unload_ui
 	call Dog_Reset
@@ -61,6 +63,9 @@ Life_B_action::
 	ld a, [rDIV]
 	and (Life_B_Progress_MAX - 16) - 1
 	or 16
+	srl a
+	srl a
+	srl a
 	ld [wLifeBTarget], a
 	ld b, a
 	; continue
@@ -69,9 +74,6 @@ Life_B_load_ui::
 	ld hl, Life_UI_X - $20
 	; b contient wLifeBTarget
 	ld a, b
-	srl a 
-	srl a 
-	srl a 
 	add l 
 	sub 1
 	ld l, a
@@ -96,9 +98,6 @@ Life_B_load_ui::
 Life_B_unload_ui::
 	ld hl, Life_UI_X - $20
 	ld a, [wLifeBTarget]
-	srl a
-	srl a
-	srl a
 	add l 
 	sub 1
 	ld l, a
@@ -145,18 +144,16 @@ Life_B_update::
 	dec a
 	ld [wLifeBProgress], a
 	jp nz, .update
-	; si wLifebProgress arrive à zéro, on annule l'action en cours
+	; si wLifebProgress arrive à zéro, on arrête
 	ld a, 1
 	ld [wLifeCantAct], a
 .update
 	ld e, a
 	call Life_B_update_ui
-
 	; test des inputs 
 	ld a, [joypad_down]
 	bit 0, a
 	ret z
-
 	; si on appuie sur B
 	; e contient wLifeBProgress
 	ld a, 4
@@ -165,4 +162,28 @@ Life_B_update::
 	ret nc
 	ld [wLifeBProgress], a
 	ret
+
+
+Life_B_end::
+	ld a, [wLifeBProgress]
+	ld b, a
+	ld a, [wLifeBTarget]
+	sla a 
+	sla a 
+	sla a
+	sub 4
+	; on compare wLifeBProgress et wLifeBTarget
+	sub 8
+	cp b
+	jr nc, .loose
+	add (16 + 1)
+	cp b
+	jr c, .loose
+.win 
+	ld a, 1
+	ret
+.loose
+	ld a, 0
+	ret 
+
 
