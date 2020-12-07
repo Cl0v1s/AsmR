@@ -1,7 +1,7 @@
 
 Life::
 Life_UI_X EQU $99E5
-Life_UI_TILE EQU $25
+Life_UI_TILE EQU $49
 
 Life_B_Progress_MAX EQU 80
 
@@ -26,13 +26,16 @@ Life_Update:
 .act
 	; Pas de remise à zéro si déjà à zéro
 	ld a, [wDogState]
+	ld b, a
+	call Dog_Reset
+
+	ld a, b
 	cp 0 
 	jr z, .act_after_reset
 	cp 1
 	call z, Life_B_end ; si dogstate vaut 1 on check la fin
 	; on remet le dogo à zéro
 	call Life_B_unload_ui
-	call Dog_Reset
 	.act_after_reset
 	; test des inputs
 	ld a, [joypad_down]
@@ -180,10 +183,18 @@ Life_B_end::
 	cp b
 	jr c, .loose
 .win 
-	ld a, 1
+	ld a, [wDogHappiness]
+	add 15
+	ld [wDogHappiness], a
 	ret
 .loose
-	ld a, 0
+	ld a, [wDogHappiness]
+	sub 5
+	ld [wDogHappiness], a
+	ld a, 2 
+	ld [wDogState], a
+	ld a, $0A*8
+	ld [wLifeCantAct], a
 	ret 
 
 

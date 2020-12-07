@@ -6,7 +6,7 @@ ROM0 bank #0:
   SECTION: $0058-$0058 ($0001 byte) ["Serial IRQ Vector"]
   SECTION: $0060-$0060 ($0001 byte) ["Joypad IRQ Vector"]
   SECTION: $0100-$014f ($0050 bytes) ["Start"]
-  SECTION: $0150-$07f9 ($06aa bytes) ["Program Start"]
+  SECTION: $0150-$0a94 ($0945 bytes) ["Program Start"]
            $0150 = START
            $0166 = CLEAN_OAM
            $0175 = CLEAN_MAP
@@ -18,55 +18,61 @@ ROM0 bank #0:
            $023a = LOAD_DATA
            $0243 = RES_DOG_ANIMATION_IDLE
            $0243 = RES_DOG_ANIMATION
-           $024b = RES_DOG_ANIMATION_IDLE_FRAME_1
-           $0255 = RES_DOG_ANIMATION_IDLE_FRAME_2
-           $0256 = RES_DOG_ANIMATION_PATPAT
-           $025e = RES_DOG_ANIMATION_PATPAT_FRAME_1
-           $0268 = RES_DOG_ANIMATION_PATPAT_FRAME_2
-           $026c = RES_DOG_ANIMATION_PATPAT_FRAME_3
-           $0276 = RES_DOG
-           $0276 = RES_DOG_ANIMATION_END
-           $04b6 = RES_BAR
-           $04b6 = RES_DOG_END
-           $04b6 = RES_BAR_1
-           $04c6 = RES_BAR_2
-           $04d6 = RES_BAR_3
-           $04e6 = RES_BAR_4
-           $04f6 = RES_BAR_5
-           $0506 = RES_BAR_6
-           $0516 = RES_BAR_7
-           $0526 = RES_BAR_8
-           $0536 = RES_BAR_9
-           $0546 = RES_BAR_END
-           $0546 = DOG
-           $05fe = Dog_Reset
-           $069b = Dog_Update
-           $06a9 = Dog_Update.patpat
-           $06ac = Dog_Update.counter
-           $06c4 = Dog_Update.update
-           $06cd = Apply_Animation
-           $06e9 = Life_Init
-           $06e9 = Life
-           $06fc = Life_Update
-           $0708 = Life_Update.act
-           $071a = Life_Update.act_after_reset
-           $0724 = Life_Update.update
-           $072c = Life_Update.draw
-           $0733 = Life_B_action
-           $0752 = Life_B_load_ui
-           $0774 = Life_B_unload_ui
-           $0790 = Life_B_update_ui
-           $07a2 = Life_B_update_ui.after_loop
-           $07ae = Life_B_update
-           $07bd = Life_B_update.update
-           $07d1 = Life_B_end
-           $07ed = Life_B_end.loose
-           $07f0 = Scene_Init
-           $07f0 = Scene
-    SLACK: $38eb bytes
+           $024c = RES_DOG_ANIMATION_IDLE_FRAME_1
+           $0256 = RES_DOG_ANIMATION_IDLE_FRAME_2
+           $0257 = RES_DOG_ANIMATION_PATPAT
+           $0260 = RES_DOG_ANIMATION_PATPAT_FRAME_1
+           $026a = RES_DOG_ANIMATION_PATPAT_FRAME_2
+           $026e = RES_DOG_ANIMATION_PATPAT_FRAME_3
+           $0278 = RES_DOG_ANIMATION_ANGRY
+           $0289 = RES_DOG_ANIMATION_ANGRY_FRAME_1
+           $0293 = RES_DOG_ANIMATION_ANGRY_FRAME_2
+           $029a = RES_DOG_ANIMATION_ANGRY_FRAME_3
+           $02a1 = RES_DOG_ANIMATION_ANGRY_FRAME_4
+           $02a8 = RES_DOG
+           $02a8 = RES_DOG_ANIMATION_END
+           $0728 = RES_BAR
+           $0728 = RES_DOG_END
+           $0728 = RES_BAR_1
+           $0738 = RES_BAR_2
+           $0748 = RES_BAR_3
+           $0758 = RES_BAR_4
+           $0768 = RES_BAR_5
+           $0778 = RES_BAR_6
+           $0788 = RES_BAR_7
+           $0798 = RES_BAR_8
+           $07a8 = RES_BAR_9
+           $07b8 = RES_BAR_END
+           $07b8 = DOG
+           $0875 = Dog_Reset
+           $0912 = Dog_Update
+           $0925 = Dog_Update.patpat
+           $092b = Dog_Update.angry
+           $092e = Dog_Update.counter
+           $0947 = Dog_Update.update
+           $0950 = Apply_Animation
+           $096c = Life_Init
+           $096c = Life
+           $097f = Life_Update
+           $098b = Life_Update.act
+           $099f = Life_Update.act_after_reset
+           $09a9 = Life_Update.update
+           $09b1 = Life_Update.draw
+           $09b8 = Life_B_action
+           $09d7 = Life_B_load_ui
+           $09f9 = Life_B_unload_ui
+           $0a15 = Life_B_update_ui
+           $0a27 = Life_B_update_ui.after_loop
+           $0a33 = Life_B_update
+           $0a42 = Life_B_update.update
+           $0a56 = Life_B_end
+           $0a78 = Life_B_end.loose
+           $0a8b = Scene_Init
+           $0a8b = Scene
+    SLACK: $3650 bytes
 
 WRAM0 bank #0:
-  SECTION: $c000-$c00d ($000e bytes) ["RAM Vars"]
+  SECTION: $c000-$c00e ($000f bytes) ["RAM Vars"]
            $c000 = vblank_flag
            $c001 = vblank_count
            $c002 = joypad_down
@@ -80,7 +86,8 @@ WRAM0 bank #0:
            $c009 = wDogAnimation
            $c00a = wDogAnimation_counter
            $c00d = wDogState
-    SLACK: $0ff2 bytes
+           $c00e = wDogHappiness
+    SLACK: $0ff1 bytes
 
 OAM bank #0:
   SECTION: $fe00-$fe9f ($00a0 bytes) ["OAM"]

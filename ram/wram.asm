@@ -23,3 +23,4 @@ wDogAnimation_counter: db
 wDogAnimation_address: dw
 
 wDogState: db ; 0: idle, 1: patpat
+wDogHappiness: db

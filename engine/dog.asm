@@ -1,6 +1,8 @@
 DOG::
 Dog_Create:
 	call Dog_Reset
+	ld a, 50
+	ld [wDogHappiness], a
 
 	; index ; tile ; y ; x ; attr
 	create_sprite 00, 1, 0, 0, 0
@@ -70,16 +72,23 @@ Dog_SetPos:
 
 Dog_Update::
 	ld a, [wDogState] 
-	cp 0 
-	jp nz, .patpat
+	cp 1
+	jp z, .patpat
+	cp 2
+	jp z, .angry
 	; wDogState == 0
 	ld hl, RES_DOG_ANIMATION_IDLE
 	jp .counter
 .patpat
 	; wDogState == 1
 	ld hl, RES_DOG_ANIMATION_PATPAT
-
+	jp .counter
+.angry
+	; wDogState == 2
+	ld hl, RES_DOG_ANIMATION_ANGRY
 .counter
+	ld c, [hl] ; récupération du nombre de tours
+	inc hl
 	; update counter
 	ld a, [wDogAnimation_counter]
 	dec a
@@ -91,7 +100,7 @@ Dog_Update::
 	dec a
 	cp 0
 	jp nz, .update
-	ld a, 3
+	ld a, c
 .update
 	ld [wDogAnimation_step], a
 	ld bc, oamSprite00
