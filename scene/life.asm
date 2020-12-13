@@ -1,7 +1,8 @@
 
 Life::
 Life_UI_X EQU $99E5
-Life_UI_TILE EQU $49
+Life_UI_TILE EQU $49 ; this should become 52
+Life_UI_TARGET EQU $52
 
 Life_B_Progress_MAX EQU 80
 
@@ -80,12 +81,12 @@ Life_B_load_ui::
 	add l 
 	sub 1
 	ld l, a
-	ld a, Life_UI_TILE
+	ld a, Life_UI_TARGET
 	ld [hl], a
 	ld a, l
 	add 2
 	ld l, a
-	ld a, Life_UI_TILE
+	ld a, Life_UI_TARGET
 	ld [hl], a
 
 	; load ui data
