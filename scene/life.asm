@@ -187,6 +187,10 @@ Life_B_end::
 	ld a, [wDogHappiness]
 	add 15
 	ld [wDogHappiness], a
+	ld a, 3
+	ld [wDogState], a
+	ld a, DOG_FRAME_DURATION*8
+	ld [wLifeCantAct], a
 	ret
 .loose
 	ld a, [wDogHappiness]
@@ -194,7 +198,7 @@ Life_B_end::
 	ld [wDogHappiness], a
 	ld a, 2 
 	ld [wDogState], a
-	ld a, $0A*8
+	ld a, DOG_FRAME_DURATION*8
 	ld [wLifeCantAct], a
 	ret 
 

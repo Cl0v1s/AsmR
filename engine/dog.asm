@@ -1,3 +1,5 @@
+DOG_FRAME_DURATION EQU $0A
+
 DOG::
 Dog_Create:
 	call Dog_Reset
@@ -86,6 +88,10 @@ Dog_Update::
 .angry
 	; wDogState == 2
 	ld hl, RES_DOG_ANIMATION_ANGRY
+	jp .counter
+.happy 
+	; wDogState == 3
+	ld hl, RES_DOG_ANIMATION_HAPPY
 .counter
 	ld c, [hl] ; récupération du nombre de tours
 	inc hl
@@ -94,7 +100,7 @@ Dog_Update::
 	dec a
 	ld [wDogAnimation_counter], a
 	ret nz
-	ld a, $0A
+	ld a, DOG_FRAME_DURATION
 	ld [wDogAnimation_counter], a
 	ld a, [wDogAnimation_step]
 	dec a
