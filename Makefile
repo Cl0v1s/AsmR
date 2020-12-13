@@ -23,3 +23,8 @@ all : $(OBJS)
 
 run: all
 	$(WINE) ./build/bgb64.exe ./build/gb.gb
+
+png: 
+	rgbgfx -o $(file).asm $(file)
+	hexdump -C $(file).asm
+	rm $(file).asm
