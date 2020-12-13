@@ -23,6 +23,6 @@ CLEAN_MAP::
 LOADING::
 ; chargement chien
 ld hl, RES_DOG
-ld bc, (RES_BAR_END - RES_DOG)
+ld bc, (RES_TARGET_END - RES_DOG)
 ld de, _VRAM + $10
 call LOAD_DATA
