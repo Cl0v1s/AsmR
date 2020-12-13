@@ -11,8 +11,8 @@ FIX = rgbfix
 
 WINE = "wine64"
 
-ifeq ($(shell type wine64), "wine64 not found")
-	WINE = ""
+ifeq ($(shell which wine64),)
+	WINE = 
 endif
 
 all : $(OBJS)
