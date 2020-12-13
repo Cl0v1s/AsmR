@@ -78,6 +78,8 @@ Dog_Update::
 	jp z, .patpat
 	cp 2
 	jp z, .angry
+	cp 3
+	jp z, .happy
 	; wDogState == 0
 	ld hl, RES_DOG_ANIMATION_IDLE
 	jp .counter

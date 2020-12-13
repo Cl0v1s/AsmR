@@ -1,8 +1,8 @@
 
 Life::
 Life_UI_X EQU $99E5
-Life_UI_TILE EQU (RES_BAR - _VRAM) >> 4
-Life_UI_TARGET EQU (RES_TARGET - _VRAM) >> 4
+Life_UI_TILE EQU ((RES_BAR - RES_DOG) >>  4) + 1
+Life_UI_TARGET EQU ((RES_TARGET - RES_DOG) >> 4) + 1
 
 Life_B_Progress_MAX EQU 80
 
