@@ -34,7 +34,7 @@ Life_Update:
 	cp 0 
 	jr z, .act_after_reset
 	cp 1
-	call z, Life_B_end ; si dogstate vaut 1 on check la fin
+	jp z, Life_B_end ; si dogstate vaut 1 on check la fin
 	; on remet le dogo à zéro
 	call Life_B_unload_ui
 	.act_after_reset
@@ -51,6 +51,7 @@ Life_Update:
 	call Screen_VBlank
 	call Dog_Update
 ret
+
 
 Life_B_action::
 	; on empeche le début d'une nouvelle action
