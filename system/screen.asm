@@ -19,7 +19,7 @@ Screen_VBlank:
 ; 3: y pos
 ; 4: x pos
 ; 5: attr
-create_sprite: MACRO
+MACRO create_sprite
 	ld a, 16 + \3
 	ld [oamSprite\1YCoord], a
 	ld a, 8 + \4
@@ -34,7 +34,7 @@ ENDM
 ; 1: id du sprite
 ; b: y
 ; c: x
-setpos_sprite: MACRO 
+MACRO setpos_sprite
 	ld a, 16
 	add b
 	ld [oamSprite\1YCoord], a

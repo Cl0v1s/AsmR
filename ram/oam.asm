@@ -1,6 +1,6 @@
 SECTION "OAM", oam
 
-sprite_oam_struct: MACRO
+MACRO sprite_oam_struct
 \1YCoord::     db
 \1XCoord::     db
 \1TileID::     db
